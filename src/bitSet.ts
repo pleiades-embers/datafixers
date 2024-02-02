@@ -1,12 +1,18 @@
- class BitSet {
+class BitSet {
     size: number;
     set: Set<number>;
     isOne: boolean; // 等于true表示set中存的是值为1的下标
+
     constructor(size: number) {
         this.size = size;
         this.set = new Set();
         this.isOne = true;
     }
+
+    static create(size:number){
+        return new BitSet(size);
+    }
+
 
     fix(idx: number): void {
         if (this.isOne) {
@@ -62,4 +68,4 @@
 }
 
 
-export {BitSet}
+export { BitSet }
