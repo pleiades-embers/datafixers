@@ -1,70 +1,65 @@
-//@ts-nocheck
-export  class BitSet {
-    constructor(size){
-        this.arr = new Array(size).fill(0);
+ class BitSet {
+    size: number;
+    set: Set<number>;
+    isOne: boolean; // 等于true表示set中存的是值为1的下标
+    constructor(size: number) {
         this.size = size;
-        this.flag = false;
-        this.onenum = 0;
+        this.set = new Set();
+        this.isOne = true;
     }
-    fix(idx){
-        if (!this.flag) {
-            if (!this.arr[idx]) {
-                this.arr[idx] = 1;
-                this.onenum ++;
-            }
+
+    fix(idx: number): void {
+        if (this.isOne) {
+            this.set.add(idx);
         } else {
-            if (this.arr[idx]) {
-                this.arr[idx] = 0;
-                this.onenum ++;
-            }
-        }
-    }
-    unfix(idx){
-        if (!this.flag) {
-            if (this.arr[idx]) {
-                this.arr[idx] = 0;
-                this.onenum --;
-            }
-        } else {
-            if (!this.arr[idx]) {
-                this.arr[idx] = 1;
-                this.onenum --;
-            }
+            this.set.delete(idx);
         }
     }
 
-    flip(){
-        this.flag = !this.flag;
-        this.onenum = this.size - this.onenum;
-    }
-
-    all(){
-        return this.onenum == this.size;
-    }
-
-    one(){
-        return this.onenum > 0;
-    }
-
-    count(){
-        return this.onenum;
-    }
-
-    toString(){
-        let tmp;
-        if (!this.flag) {
-            tmp = new Array(this.size).fill(0);
-            for (let i = 0; i < this.arr.length; i++) {
-                if (this.arr[i] == 1) {
-                    tmp[i] = this.arr[i];
-                }
-            }
+    unfix(idx: number): void {
+        if (this.isOne) {
+            this.set.delete(idx);
         } else {
-            tmp = new Array(this.size).fill(1);
-            for (let i = 0; i < this.arr.length; i++) {
-                tmp[i] = +this.arr[i] == 1 ? 0 : 1;
-            }
+            this.set.add(idx);
         }
-        return tmp.join('');
+    }
+
+    flip(): void {
+        this.isOne = !this.isOne;
+    }
+
+    all(): boolean {
+        return this.isOne ? this.set.size === this.size : this.set.size === 0;
+    }
+
+    one(): boolean {
+        return this.isOne ? this.set.size > 0 : this.set.size < this.size;
+    }
+
+    count(): number {
+        if (this.isOne) {
+            return this.set.size;
+        } else {
+            return this.size - this.set.size;
+        }
+    }
+
+    toString(): string {
+        if (this.isOne) {
+            const arr = new Array(this.size).fill('0');
+            for (const idx of this.set) {
+                arr[idx] = '1';
+            }
+            return arr.join('');
+        } else {
+            const arr = new Array(this.size).fill('1');
+            for (const idx of this.set) {
+                arr[idx] = '0';
+            }
+            return arr.join('');
+        }
     }
 }
+
+
+export {BitSet}

@@ -6,7 +6,7 @@ export default [
 		output: {
 			name:"datafixers",
 			dir: "lib",
-			format: 'es',
+			format: 'esm',
 			preserveModules: true, 
 			preserveModulesRoot: 'src',
 		},
