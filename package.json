@@ -1,15 +1,20 @@
 {
-	"name": "datafixers",
-	"main": "lib/index.cjs.js",
-	"module": "lib/index.esm.js",
-	"type":"module",
-	"scripts": {
-		"build": "rollup -c",
-		"dev": "rollup -c -w",
-		"pretest": "npm run build"
-	  },
-	"dependencies": {
-		"rollup": "^4.9.6"
-	}
-
+  "name": "datafixers",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p ./src/tsconfig.json && rollup -c",
+    "dev": "tsc -p ./src/tsconfig.json && rollup -c -w",
+    "pretest": "npm run build"
+  },
+  "files": [
+    "lib"
+  ],
+  "typings": "./lib/index.d.ts",
+  "dependencies": {
+    "rollup": "^4.9.6",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.3.3"
+  }
 }

@@ -1,4 +1,5 @@
-class BitSet {
+//@ts-nocheck
+export  class BitSet {
     constructor(size){
         this.arr = new Array(size).fill(0);
         this.size = size;
@@ -67,5 +68,3 @@ class BitSet {
         return tmp.join('');
     }
 }
-
-export { BitSet };
